@@ -23,7 +23,17 @@ public class LoginController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		System.out.println("Username : " + username + " and " + "Password : " + password);
+		if (username == null || username.trim().isEmpty()) {
+			request.setAttribute("error", "Username is required.");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return;
+		}
+
+		if (password == null || password.isEmpty()) {
+			request.setAttribute("error", "Password is required.");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return;
+		}
 
 		UserDAO ud = new UserDAO();
 		boolean status = ud.loginUser(username, password);

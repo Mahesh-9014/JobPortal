@@ -1,8 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
+<%
+String username = (String) session.getAttribute("username");
+String role = (String) session.getAttribute("role");
+Object message = request.getAttribute("message");
 
+if (username == null || !"JOB SEEKER".equals(role)) {
+	response.sendRedirect("login.jsp");
+	return;
+}
+
+if (message == null) {
+	response.sendRedirect("JobsController");
+	return;
+}
+%>
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -16,13 +31,9 @@
 <body class="bg-light">
 
 	<div class="container">
-
 		<div class="row justify-content-center mt-5">
-
 			<div class="col-md-7 col-lg-6">
-
 				<div class="card shadow border-0 text-center">
-
 					<div class="card-body p-5">
 
 						<div class="mb-4">
@@ -30,7 +41,7 @@
 						</div>
 
 						<h2 class="fw-bold mb-3">
-							<%=request.getAttribute("message")%>
+							<%=message%>
 						</h2>
 
 						<p class="text-muted mb-4">Your job application has been
@@ -41,13 +52,9 @@
 							class="btn btn-outline-primary px-4"> View Jobs </a>
 
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 
 </body>

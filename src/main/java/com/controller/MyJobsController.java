@@ -12,22 +12,33 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
 @WebServlet("/MyJobsController")
 public class MyJobsController extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        String username = (String) request.getSession().getAttribute("username");
+		HttpSession session = request.getSession(false);
 
-        JobDAO jd = new JobDAO();
-        List<JobModel> list = jd.getJobsByUsername(username);
+		if (session == null || session.getAttribute("username") == null
+				|| !"RECRUITER".equals(session.getAttribute("role"))) {
 
-        request.setAttribute("list", list);
+			response.sendRedirect("login.jsp");
+			return;
+		}
 
-        RequestDispatcher rd = request.getRequestDispatcher("myJobs.jsp");
-        rd.forward(request, response);
-    }
+		String username = (String) session.getAttribute("username");
+
+		JobDAO jd = new JobDAO();
+		List<JobModel> list = jd.getJobsByUsername(username);
+
+		request.setAttribute("list", list);
+
+		RequestDispatcher rd = request.getRequestDispatcher("myJobs.jsp");
+		rd.forward(request, response);
+	}
 }

@@ -12,9 +12,9 @@ import com.utility.DBConnection;
 public class ApplicationDAO implements ApplicationDAOInf {
 
 	Connection con = null;
-	boolean status = false;
 
 	public boolean applyJob(ApplicationModel am) {
+		boolean status = false;
 		try {
 			con = DBConnection.getConnection();
 			PreparedStatement ps = con.prepareStatement(
@@ -66,6 +66,7 @@ public class ApplicationDAO implements ApplicationDAOInf {
 	}
 
 	public boolean checkApplication(int jobId, String username) {
+		boolean status = false;
 		try {
 			con = DBConnection.getConnection();
 			PreparedStatement ps = con.prepareStatement("select * from applications where job_id=? and username=?");
@@ -123,7 +124,6 @@ public class ApplicationDAO implements ApplicationDAOInf {
 		boolean result = false;
 
 		try {
-
 			con = DBConnection.getConnection();
 			PreparedStatement ps = con.prepareStatement("update applications set status=? where application_id=?");
 
@@ -131,11 +131,9 @@ public class ApplicationDAO implements ApplicationDAOInf {
 			ps.setInt(2, applicationId);
 
 			int n = ps.executeUpdate();
-
 			if (n > 0) {
 				result = true;
 			}
-
 		} catch (Exception e) {
 			System.out.println(e);
 		}

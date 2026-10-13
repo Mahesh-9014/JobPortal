@@ -1,31 +1,55 @@
 package com.controller;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.DAO.JobDAO;
 import com.model.JobModel;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 @SuppressWarnings("serial")
 @WebServlet("/PostJobController")
 public class PostJobController extends HttpServlet {
-//	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false);
+
+		if (session == null || session.getAttribute("username") == null
+				|| !"RECRUITER".equals(session.getAttribute("role"))) {
+
+			response.sendRedirect("login.jsp");
+			return;
+		}
 
 		String title = request.getParameter("title");
 		String company = request.getParameter("company");
 		String location = request.getParameter("location");
 		String description = request.getParameter("description");
 		String skills = request.getParameter("skills");
-		double salary = Double.parseDouble(request.getParameter("salary"));
 		String jobType = request.getParameter("jobType");
-		String username = (String) request.getSession().getAttribute("username");
+		String username = (String) session.getAttribute("username");
+
+		double salary;
+
+		try {
+			salary = Double.parseDouble(request.getParameter("salary"));
+
+			if (!Double.isFinite(salary) || salary < 0) {
+				response.sendRedirect("postJob.jsp");
+				return;
+			}
+		} catch (NumberFormatException | NullPointerException e) {
+			response.sendRedirect("postJob.jsp");
+			return;
+		}
 
 		JobModel jm = new JobModel();
 		jm.setTitle(title);
@@ -43,9 +67,7 @@ public class PostJobController extends HttpServlet {
 		if (status) {
 			response.sendRedirect("recruiterHome.jsp");
 		} else {
-			System.out.println("Inserted failed!!");
+			response.sendRedirect("postJob.jsp");
 		}
-
 	}
-
 }

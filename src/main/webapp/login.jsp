@@ -194,27 +194,44 @@ footer {
 
 			<%
 			String error = (String) request.getAttribute("error");
-			if (error != null) {
+			String success = (String) request.getAttribute("success");
 			%>
 
-			<p class="text-danger text-center"><%=error%></p>
-
+			<%
+			if (error != null) {
+			%>
+			<div class="alert alert-danger" role="alert">
+				<%=error%>
+			</div>
 			<%
 			}
 			%>
 
-			<form action="LoginController" method="post">
+			<%
+			if (success != null) {
+			%>
+			<div class="alert alert-success" role="alert">
+				<%=success%>
+			</div>
+			<%
+			}
+			%>
+
+			<form action="LoginController" method="post" id="loginForm"
+				novalidate>
 
 				<div class="mb-3">
-					<label for="username" class="form-label"> Username </label> <input
+					<label for="username" class="form-label">Username</label> <input
 						type="text" class="form-control" id="username" name="username"
-						placeholder="Enter your username" required>
+						placeholder="Enter your username" required> <small
+						id="usernameError" class="text-danger"></small>
 				</div>
 
 				<div class="mb-3">
-					<label for="password" class="form-label"> Password </label> <input
+					<label for="password" class="form-label">Password</label> <input
 						type="password" class="form-control" id="password" name="password"
-						placeholder="Enter your password" required>
+						placeholder="Enter your password" required> <small
+						id="passwordError" class="text-danger"></small>
 				</div>
 
 				<div class="d-grid">
@@ -310,6 +327,47 @@ footer {
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 		
+	</script>
+
+	<script>
+		const loginForm = document.getElementById("loginForm");
+		const username = document.getElementById("username");
+		const password = document.getElementById("password");
+
+		const usernameError = document.getElementById("usernameError");
+		const passwordError = document.getElementById("passwordError");
+
+		function validateUsername() {
+			if (username.value.trim() === "") {
+				usernameError.textContent = "Username is required.";
+				return false;
+			}
+
+			usernameError.textContent = "";
+			return true;
+		}
+
+		function validatePassword() {
+			if (password.value === "") {
+				passwordError.textContent = "Password is required.";
+				return false;
+			}
+
+			passwordError.textContent = "";
+			return true;
+		}
+
+		username.addEventListener("blur", validateUsername);
+		password.addEventListener("blur", validatePassword);
+
+		loginForm.addEventListener("submit", function(event) {
+			const usernameValid = validateUsername();
+			const passwordValid = validatePassword();
+
+			if (!usernameValid || !passwordValid) {
+				event.preventDefault();
+			}
+		});
 	</script>
 
 </body>

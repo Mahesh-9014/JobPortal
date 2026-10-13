@@ -115,6 +115,13 @@ body {
 	background: #4338ca;
 }
 
+.validation-message {
+	display: block;
+	color: #dc3545;
+	font-size: 13px;
+	margin-top: 5px;
+}
+
 footer {
 	background: #ffffff;
 	color: #495057;
@@ -190,10 +197,9 @@ footer {
 <body>
 
 	<nav class="navbar navbar-expand-lg">
-
 		<div class="container-fluid px-4">
 
-			<a class="navbar-brand" href="index.jsp"> JOB PORTAL </a>
+			<a class="navbar-brand" href="index.jsp">JOB PORTAL</a>
 
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarMenu"
@@ -201,32 +207,27 @@ footer {
 				aria-label="Toggle navigation">
 
 				<span class="navbar-toggler-icon"></span>
-
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarMenu">
-
 				<ul class="navbar-nav ms-auto">
 
-					<li class="nav-item"><a class="nav-link" href="login.jsp">
-							Login </a></li>
+					<li class="nav-item"><a class="nav-link" href="login.jsp">Login</a>
+					</li>
 
 					<li class="nav-item"><a class="nav-link active"
-						href="index.jsp"> Register </a></li>
+						href="index.jsp">Register</a></li>
 
 				</ul>
-
 			</div>
-
 		</div>
-
 	</nav>
+
 
 	<div
 		class="container register-section d-flex justify-content-center align-items-center">
 
 		<div class="card register-card">
-
 			<div class="card-body p-4 p-md-5">
 
 				<h2 class="text-center register-title mb-2">Create Account</h2>
@@ -234,146 +235,225 @@ footer {
 				<p class="text-center register-subtitle mb-4">Join our Online
 					Job Portal</p>
 
+				<%
+				String error = (String) request.getAttribute("error");
+				if (error != null) {
+				%>
+				<div class="alert alert-danger">
+					<%=error%>
+				</div>
+				<%
+				}
+				%>
 
-				<form action="RegisterController" method="post">
+				<form action="RegisterController" method="post" id="registerForm"
+					novalidate>
 
 					<div class="mb-3">
 
-						<label for="username" class="form-label"> Username </label> <input
+						<label for="username" class="form-label">Username</label> <input
 							type="text" class="form-control" id="username" name="username"
-							placeholder="Enter username" required>
+							placeholder="Enter username" autocomplete="username" required
+							minlength="3"> <span class="validation-message"
+							id="usernameError"></span>
 
 					</div>
 
 					<div class="mb-3">
 
-						<label for="password" class="form-label"> Password </label> <input
+						<label for="password" class="form-label">Password</label> <input
 							type="password" class="form-control" id="password"
-							name="password" placeholder="Enter password" required>
+							name="password" placeholder="Enter password"
+							autocomplete="new-password" required minlength="8"> <span
+							class="validation-message" id="passwordError"></span>
 
+					</div>
+
+					<div class="mb-3">
+						<label for="confirmPassword" class="form-label"> Confirm
+							Password </label> <input type="password" class="form-control"
+							id="confirmPassword" name="confirmPassword"
+							placeholder="Re-enter your password" required> <small
+							id="confirmPasswordError" class="text-danger"></small>
 					</div>
 
 					<div class="mb-4">
 
-						<label for="role" class="form-label"> Register As </label> <select
+						<label for="role" class="form-label">Register As</label> <select
 							class="form-select" id="role" name="role" required>
 
 							<option value="" selected disabled>Select your role</option>
-
 							<option value="JOB SEEKER">Job Seeker</option>
-
 							<option value="RECRUITER">Recruiter</option>
 
-						</select>
+						</select> <span class="validation-message" id="roleError"></span>
 
 					</div>
 
 					<div class="d-grid">
 
 						<button type="submit" class="btn register-btn text-white">
-
 							Register</button>
 
 					</div>
 
 				</form>
 
-
 				<p class="text-center mt-4 mb-0">
-
 					Already have an account? <a href="login.jsp"
 						class="text-decoration-none fw-semibold"> Login </a>
-
 				</p>
 
 			</div>
-
 		</div>
-
 	</div>
 
 
-	<!-- ================= FOOTER ================= -->
-
 	<footer>
-
 		<div class="container">
 
 			<div class="row g-4">
 
 				<div class="col-lg-5 col-md-6">
-
 					<div class="footer-brand">JOB PORTAL</div>
 
 					<p class="footer-description">Find the right opportunities,
 						connect with employers, and take the next step in your career with
 						our online job portal.</p>
-
 				</div>
 
-
 				<div class="col-lg-2 col-md-6">
-
 					<h5 class="footer-title">Quick Links</h5>
 
 					<ul class="footer-links">
-
 						<li><a href="login.jsp">Home</a></li>
-
 						<li><a href="login.jsp">Find Jobs</a></li>
-
 						<li><a href="login.jsp">Login</a></li>
-
 						<li><a href="index.jsp">Register</a></li>
-
 					</ul>
-
 				</div>
 
-
 				<div class="col-lg-2 col-md-6">
-
 					<h5 class="footer-title">Job Seekers</h5>
 
 					<ul class="footer-links">
-
 						<li><a href="login.jsp">Browse Jobs</a></li>
-
 						<li><a href="login.jsp">My Applications</a></li>
-
 						<li><a href="login.jsp">My Profile</a></li>
-
 					</ul>
-
 				</div>
 
-
 				<div class="col-lg-3 col-md-6">
-
 					<h5 class="footer-title">Contact Us</h5>
 
 					<p class="footer-contact">support@jobportal.com</p>
-
 					<p class="footer-contact">+91 98765 43210</p>
-
 					<p class="footer-contact">Hyderabad, India</p>
-
 				</div>
 
 			</div>
-
 
 			<div class="footer-bottom text-center">© 2026 JOB PORTAL. All
 				rights reserved.</div>
 
 		</div>
-
 	</footer>
 
 
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-		
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+		const registerForm = document.getElementById("registerForm");
+
+		const username = document.getElementById("username");
+		const password = document.getElementById("password");
+		const role = document.getElementById("role");
+
+		function validateUsername() {
+			const value = username.value.trim();
+			const error = document.getElementById("usernameError");
+
+			if (value.length === 0) {
+				error.textContent = "Username is required.";
+				return false;
+			}
+
+			if (value.length < 3) {
+				error.textContent = "Username must contain at least 3 characters.";
+				return false;
+			}
+
+			error.textContent = "";
+			return true;
+		}
+
+		function validatePassword() {
+			const value = password.value;
+			const error = document.getElementById("passwordError");
+
+			if (value.length === 0) {
+				error.textContent = "Password is required.";
+				return false;
+			}
+
+			if (value.length < 8) {
+				error.textContent = "Password must contain at least 8 characters.";
+				return false;
+			}
+
+			error.textContent = "";
+			return true;
+		}
+
+		const confirmPassword = document.getElementById("confirmPassword");
+
+		function validateConfirmPassword() {
+			const error = document.getElementById("confirmPasswordError");
+
+			if (confirmPassword.value.length === 0) {
+				error.textContent = "Please confirm your password.";
+				return false;
+			}
+
+			if (confirmPassword.value !== password.value) {
+				error.textContent = "Passwords do not match.";
+				return false;
+			}
+
+			error.textContent = "";
+			return true;
+		}
+
+		confirmPassword.addEventListener("blur", validateConfirmPassword);
+		confirmPassword.addEventListener("input", validateConfirmPassword);
+
+		function validateRole() {
+			const error = document.getElementById("roleError");
+
+			if (role.value === "") {
+				error.textContent = "Please select a role.";
+				return false;
+			}
+
+			error.textContent = "";
+			return true;
+		}
+
+		username.addEventListener("blur", validateUsername);
+		password.addEventListener("blur", validatePassword);
+		role.addEventListener("change", validateRole);
+
+		registerForm.addEventListener("submit", function(event) {
+
+			const usernameValid = validateUsername();
+			const passwordValid = validatePassword();
+			const roleValid = validateRole();
+
+			if (!usernameValid || !passwordValid || !roleValid || !confirmPasswordValid) {
+				event.preventDefault();
+			}
+		});
 	</script>
 
 </body>

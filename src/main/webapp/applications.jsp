@@ -4,6 +4,24 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.model.ApplicationModel"%>
 
+<%
+String username = (String) session.getAttribute("username");
+String role = (String) session.getAttribute("role");
+
+if (username == null || !"JOB SEEKER".equals(role)) {
+	response.sendRedirect("login.jsp");
+	return;
+}
+
+@SuppressWarnings("unchecked")
+List<ApplicationModel> list = (List<ApplicationModel>) request.getAttribute("list");
+
+if (list == null) {
+	response.sendRedirect("ApplicationsController");
+	return;
+}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,19 +76,15 @@ body {
 		<h2 class="page-title text-center">My Applications</h2>
 
 		<%
-		@SuppressWarnings("unchecked")
-		List<ApplicationModel> list = (List<ApplicationModel>) request.getAttribute("list");
-		%>
-
-		<%
-		if (list == null || list.isEmpty()) {
+		if (list.isEmpty()) {
 		%>
 
 		<div class="text-center">
 			<h5>No applications found.</h5>
+
 			<p class="text-muted">You have not applied for any jobs yet.</p>
 
-			<a href="JobController" class="btn btn-primary"> Find Jobs </a>
+			<a href="JobsController" class="btn btn-primary"> Find Jobs </a>
 		</div>
 
 		<%
@@ -81,7 +95,8 @@ body {
 		<div class="application-card">
 
 			<h4>
-				Application #<%=am.getApplicationId()%></h4>
+				Application #<%=am.getApplicationId()%>
+			</h4>
 
 			<p>
 				<span class="label">Job ID:</span>
@@ -121,6 +136,6 @@ body {
 		%>
 
 	</div>
-		
+
 </body>
 </html>

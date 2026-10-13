@@ -7,6 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -24,6 +26,13 @@ public class HomeController extends HttpServlet {
 //		System.out.println("HomeController Session Username : "
 //		        + request.getSession().getAttribute("username"));
 
+		HttpSession session = request.getSession(false);
+
+		if (session == null || session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+			return;
+		}
+
 		JobDAO jd = new JobDAO();
 		List<JobModel> list = jd.getJobDetails();
 //		System.out.println("Job List Size : " + list.size());
@@ -37,6 +46,13 @@ public class HomeController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false);
+
+		if (session == null || session.getAttribute("username") == null) {
+			response.sendRedirect("login.jsp");
+			return;
+		}
 
 		JobDAO jd = new JobDAO();
 		List<JobModel> list = jd.getJobDetails();

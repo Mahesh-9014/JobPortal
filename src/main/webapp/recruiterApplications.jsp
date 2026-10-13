@@ -3,6 +3,16 @@
 
 <%@ page import="java.util.List, com.model.ApplicationModel"%>
 
+<%
+String username = (String) session.getAttribute("username");
+String role = (String) session.getAttribute("role");
+
+if (username == null || !"RECRUITER".equals(role)) {
+	response.sendRedirect("login.jsp");
+	return;
+}
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -97,12 +107,10 @@ body {
 	<div class="container page-section">
 
 		<div class="text-center">
-
 			<h1 class="page-title">Applications</h1>
 
 			<p class="page-description">View applications received for your
 				job postings.</p>
-
 		</div>
 
 		<div class="row g-4">
@@ -167,8 +175,8 @@ body {
 							class="d-inline">
 
 							<input type="hidden" name="applicationId"
-								value="<%=a.getApplicationId()%>"> <input type="hidden"
-								name="status" value="Accepted">
+								value="<%=a.getApplicationId()%>"> <input
+								type="hidden" name="status" value="Accepted">
 
 							<button type="submit" class="btn btn-success">Accept</button>
 
@@ -178,8 +186,8 @@ body {
 							class="d-inline ms-2">
 
 							<input type="hidden" name="applicationId"
-								value="<%=a.getApplicationId()%>"> <input type="hidden"
-								name="status" value="Rejected">
+								value="<%=a.getApplicationId()%>"> <input
+								type="hidden" name="status" value="Rejected">
 
 							<button type="submit" class="btn btn-danger">Reject</button>
 
@@ -198,10 +206,8 @@ body {
 			%>
 
 			<div class="col-12 text-center">
-
 				<p class="text-muted">No applications found for your job
 					postings.</p>
-
 			</div>
 
 			<%
@@ -209,11 +215,10 @@ body {
 			%>
 
 		</div>
+
 		<div class="text-center back-home">
-
-			<a href="recruiterHome.jsp" class="btn btn-outline-primary px-4 py-2">
+			<a href="RecruiterHomeController" class="btn btn-outline-primary px-4 py-2">
 				&larr; Back to Home </a>
-
 		</div>
 
 	</div>

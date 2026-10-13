@@ -9,12 +9,11 @@ import com.utility.DBConnection;
 
 public class UserDAO implements UserDAOInf {
 
-	boolean status = false;
 	Connection con = null;
 
 	@Override
 	public boolean registerUser(UserModel um) {
-
+		boolean status = false;
 		try {
 			con = DBConnection.getConnection();
 			PreparedStatement ps = con.prepareStatement("insert into users(username, password, role) values(?,?,?)");
@@ -32,15 +31,19 @@ public class UserDAO implements UserDAOInf {
 	}
 
 	public boolean loginUser(String username, String password) {
-		try {
-			con = DBConnection.getConnection();
-			PreparedStatement ps = con.prepareStatement("select * from users where username=? and password=?");
+		boolean status = false;
+
+		String query = "SELECT * FROM users WHERE username=? AND password=?";
+
+		try (Connection con = DBConnection.getConnection(); 
+			PreparedStatement ps = con.prepareStatement(query)) {
 			ps.setString(1, username);
 			ps.setString(2, password);
-			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
-				status = true;
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					status = true;
+				}
 			}
 
 		} catch (Exception e) {
@@ -51,6 +54,7 @@ public class UserDAO implements UserDAOInf {
 	}
 
 	public boolean updatePassword(String username, String password) {
+		boolean status = false;
 		try {
 			con = DBConnection.getConnection();
 			PreparedStatement ps = con.prepareStatement("update users set password=? where username=?");

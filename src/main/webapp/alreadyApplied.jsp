@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%
+String username = (String) session.getAttribute("username");
+String role = (String) session.getAttribute("role");
+Object message = request.getAttribute("message");
+
+if (username == null || !"JOB SEEKER".equals(role)) {
+	response.sendRedirect("login.jsp");
+	return;
+}
+
+if (message == null) {
+	response.sendRedirect("JobsController");
+	return;
+}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +26,6 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-
 </head>
 
 <body class="bg-light">
@@ -24,7 +39,9 @@
 				<h1>⚠</h1>
 			</div>
 
-			<h2 class="mb-3">You have already applied for this job.</h2>
+			<h2 class="mb-3">
+				<%=message%>
+			</h2>
 
 			<p class="text-muted">You cannot apply for the same job more than
 				once.</p>
@@ -36,7 +53,6 @@
 			</div>
 
 		</div>
-
 	</div>
 
 </body>
