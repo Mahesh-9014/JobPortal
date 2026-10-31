@@ -83,10 +83,10 @@ Unauthorized users are redirected to `login.jsp`.
 
 ## 📂 Project Architecture
 
-OnlineJobPortal
+OnlineJobPortal/
 │
-├── src
-│   ├── com.controller
+├── src/
+│   ├── com.controller/
 │   │   ├── LoginController.java
 │   │   ├── LogoutController.java
 │   │   ├── HomeController.java
@@ -101,20 +101,20 @@ OnlineJobPortal
 │   │   ├── ProfileController.java
 │   │   └── RecruiterHomeController.java
 │   │
-│   ├── com.DAO
+│   ├── com.DAO/
 │   │   ├── UserDAO.java
 │   │   ├── JobDAO.java
 │   │   └── ApplicationDAO.java
 │   │
-│   ├── com.model
+│   ├── com.model/
 │   │   ├── UserModel.java
 │   │   ├── JobModel.java
 │   │   └── ApplicationModel.java
 │   │
-│   └── com.utility
+│   └── com.utility/
 │       └── DBConnection.java
 │
-├── WebContent
+├── WebContent/
 │   ├── login.jsp
 │   ├── home.jsp
 │   ├── jobs.jsp
