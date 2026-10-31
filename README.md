@@ -83,8 +83,6 @@ Unauthorized users are redirected to `login.jsp`.
 
 ## 📂 Project Architecture
 
-## 📂 Project Architecture
-
 ```text
 OnlineJobPortal/
 │
