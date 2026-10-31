@@ -83,23 +83,27 @@ Unauthorized users are redirected to `login.jsp`.
 
 ## 📂 Project Architecture
 
+## 📂 Project Architecture
+
+```text
 OnlineJobPortal/
 │
 ├── src/
+│   │
 │   ├── com.controller/
 │   │   ├── LoginController.java
 │   │   ├── LogoutController.java
 │   │   ├── HomeController.java
+│   │   ├── RecruiterHomeController.java
 │   │   ├── JobsController.java
 │   │   ├── JobDetailsController.java
 │   │   ├── PostJobController.java
 │   │   ├── MyJobsController.java
-│   │   ├── ApplicationController.java
-│   │   ├── ApplicationsController.java
 │   │   ├── RecruiterApplicationsController.java
 │   │   ├── UpdateApplicationController.java
-│   │   ├── ProfileController.java
-│   │   └── RecruiterHomeController.java
+│   │   ├── ApplicationController.java
+│   │   ├── ApplicationsController.java
+│   │   └── ProfileController.java
 │   │
 │   ├── com.DAO/
 │   │   ├── UserDAO.java
@@ -115,11 +119,12 @@ OnlineJobPortal/
 │       └── DBConnection.java
 │
 ├── WebContent/
+│   │
 │   ├── login.jsp
 │   ├── home.jsp
+│   ├── recruiterHome.jsp
 │   ├── jobs.jsp
 │   ├── jobDetails.jsp
-│   ├── recruiterHome.jsp
 │   ├── myJobs.jsp
 │   ├── applications.jsp
 │   ├── recruiterApplications.jsp
@@ -129,6 +134,7 @@ OnlineJobPortal/
 │   └── alreadyApplied.jsp
 │
 └── README.md
+```
 
 ---
 
