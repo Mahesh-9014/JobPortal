@@ -215,7 +215,7 @@ Stores application information such as:
 
 ### 1. Clone the Repository
 
-git clone https://github.com/Mahesh-9014/JobPortal
+git clone https://github.com/Mahesh-9014/JobPortal.git
 
 ### 2. Import into Eclipse
 
