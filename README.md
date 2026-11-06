@@ -140,6 +140,7 @@ OnlineJobPortal/
 
 ### Recruiter Workflow
 
+```text
 Login
   ↓
 Recruiter Home
@@ -171,6 +172,7 @@ Application Stored in MySQL
 View My Applications
   ↓
 Check Application Status
+```
 
 ---
 
