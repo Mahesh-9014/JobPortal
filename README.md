@@ -154,9 +154,11 @@ View My Jobs
 View Applications
   ↓
 Accept / Reject Application
+```
 
 ### Job Seeker Workflow
 
+```text
 Login
   ↓
 Home / Jobs
